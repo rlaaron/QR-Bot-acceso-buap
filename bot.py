@@ -6,6 +6,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from decouple import config
+import pywhatkit
+from datetime import date
+from datetime import datetime
 
 # url of the page
 url = 'https://accesoqr.buap.mx/' 
@@ -15,7 +18,10 @@ url = 'https://accesoqr.buap.mx/'
 user = config('email') 
 psw = config('password')
 complete = config('form')
+number = config('number')
 
+now = date.today()
+    
 # Using the `selenium` library to open the browser and navigate to the page.
 # login to the page
 login = '#__next > main > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation6.MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-12.MuiGrid-grid-sm-8.MuiGrid-grid-md-5.css-1qupdea > div > form > button.MuiButton-root.MuiButton-contained.MuiButton-containedPrimary.MuiButton-sizeMedium.MuiButton-containedSizeMedium.MuiButton-fullWidth.MuiButtonBase-root.css-g256t'
@@ -58,7 +64,7 @@ driver.get(url)
 
 # A way to find the element in the page and click it.
 driver.find_element(By.CSS_SELECTOR,(login)).click()
-time.sleep(1) # wait 1 seconds to load the page
+time.sleep(2) # wait 1 seconds to load the page
 driver.find_element(By.CSS_SELECTOR,(userButtom)).send_keys(user)
 driver.find_element(By.CSS_SELECTOR,(nextButtom)).click()
 driver.find_element(By.CSS_SELECTOR,(passwordButtom)).send_keys(psw)
@@ -70,8 +76,8 @@ driver.find_element(By.CSS_SELECTOR,(safeSesion)).click()
 # wait for the form to load
 time.sleep(1.5)
 
-
-
+# QR code name
+img='QR'+str(now)+'.png'
 
 # Checking if the form is complete. If it is complete, it will download the QR code. If it is not
 # complete, it will fill the form.
@@ -79,7 +85,7 @@ if complete:
     
     time.sleep(.5)
     # driver.find_element(By.CSS_SELECTOR,(dowload)).click() # download the QR code optional
-    driver.save_screenshot('qr.png') # save the QR code optional
+    driver.save_screenshot(img) # save the QR code optional
     driver.close() # close the browser
 
 else:
@@ -90,8 +96,11 @@ else:
     time.sleep(.5)
     driver.find_element(By.CSS_SELECTOR,(close)).click()
     time.sleep(.5)
-    driver.save_screenshot('qr.png') # save the QR code optional
+    driver.save_screenshot(img) # save the QR code optional
     driver.close() # close the browser
+
+# Sending the QR code to the number that is in the `.env` file.
+pywhatkit.sendwhats_image(number, img , 'codigo QR '+str(now))
 
 # end of the program
 
