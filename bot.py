@@ -21,7 +21,7 @@ complete = config('form')
 number = config('number')
 
 # path to the chromedriver example: /home/user/Downloads/chromedriver
-driverPath = 'C:\\Users\\aaron\\Downloads\\chromedriver_win32 (1)\\chromedriver.exe'
+driverPath = ''
 
 
 
