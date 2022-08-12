@@ -20,6 +20,11 @@ psw = config('password')
 complete = config('form')
 number = config('number')
 
+# path to the chromedriver example: /home/user/Downloads/chromedriver
+driverPath = 'C:\\Users\\aaron\\Downloads\\chromedriver_win32 (1)\\chromedriver.exe'
+
+
+
 now = date.today()
     
 # Using the `selenium` library to open the browser and navigate to the page.
@@ -50,8 +55,7 @@ close = 'body > div.MuiModal-root.MuiDialog-root.css-126xj0f > div.MuiDialog-con
 #download qr optional
 # dowload = '#__next > div > main > main > div > div > div > div > a'
 
-# path to the chromedriver
-driverPath = "C:\\Users\\aaron\\Downloads\\chromedriver_win32 (1)\\chromedriver.exe"
+
 
 # open the browser
 driver = webdriver.Chrome(driverPath)
@@ -81,7 +85,7 @@ img='QR'+str(now)+'.png'
 
 # Checking if the form is complete. If it is complete, it will download the QR code. If it is not
 # complete, it will fill the form.
-if complete:
+if complete == True:
     
     time.sleep(.5)
     # driver.find_element(By.CSS_SELECTOR,(dowload)).click() # download the QR code optional
@@ -89,6 +93,7 @@ if complete:
     driver.close() # close the browser
 
 else:
+    print('Filling the form')
     driver.find_element(By.CSS_SELECTOR,(vaccination)).click()
     driver.find_element(By.CSS_SELECTOR,(vaccination)).click()
     driver.find_element(By.CSS_SELECTOR,(accept)).click()
