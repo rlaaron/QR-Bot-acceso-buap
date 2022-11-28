@@ -21,7 +21,7 @@ complete = config('form')
 number = config('number')
 
 # path to the chromedriver example: /home/user/Downloads/chromedriver
-driverPath = ''
+driverPath = 'C:\\Users\\aaron\\Downloads\\chromedriver_win32 (1)\\chromedriver.exe'
 
 
 
@@ -94,7 +94,8 @@ if complete == True:
 
 else:
     print('Filling the form')
-    driver.find_element(By.CSS_SELECTOR,(vaccination)).click()
+    time.sleep.sleep(1)
+    # driver.find_element(By.CSS_SELECTOR,(vaccination)).click()
     driver.find_element(By.CSS_SELECTOR,(vaccination)).click()
     driver.find_element(By.CSS_SELECTOR,(accept)).click()
     driver.find_element(By.CSS_SELECTOR,(confirm)).click()
